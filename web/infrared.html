@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>IP Data Sensors</title>
+	<link rel="stylesheet" href="css/materialize.css">
+	<link rel="stylesheet" href="css/style.css">
+
+	<style>
+	 
+	  body {
+	    background: white;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	  }
+	  canvas {
+	    border: 1px solid black;
+	    background: yellow;
+	  }
+	 </style>
+
+</head>
+<body>
+	
+	<!-- navbar -->
+	<div class="navbar">
+		<div class="container">
+			<div class="row">
+				<div class="col s9">
+					<div class="content-left">
+						<a href="home.html"><h1><span>PI</span> Data Sensors</h1></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end navbar -->
+	
+	
+	<!-- contact -->
+	<div class="contact segments-page">
+		<div class="container">
+			<div class="contact-contents">
+				<div class="pages-title">
+					<h3>Snake Infrarouge</h3>
+					<div class="line"></div>
+
+				</div>			
+			</div>
+		</div>
+
+		<canvas id="game" style='position:center; left:0px; top:0px;'>Utiliser les flèches directionnelles de la télécommande infrarouge afin de contrôler le serpent.</canvas>
+	
+	</div>
+
+	<!-- end contact -->
+
+
+	<script src="js/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io-stream/0.9.1/socket.io-stream.js"></script>
+	<script src="js/snake.js"></script>
+</body>
+</html>

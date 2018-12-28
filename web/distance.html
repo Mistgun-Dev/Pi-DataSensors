@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>IP Data Sensors</title>
+	<link rel="stylesheet" href="css/materialize.css">
+	<link rel="stylesheet" href="css/style.css">
+
+
+	<style>
+
+		html,
+		button,
+		input,
+		select,
+		textarea {
+			color: #5e5e5e;
+			-webkit-font-smoothing: antialiased;
+		}
+		body {
+		
+			font: 1rem/1.6 Montserrat, Helvetica, Helvetica Neue, Arial;
+		}
+		.page{
+		  display: flex;
+		  align-items: center;
+		  align-content: center;
+		  width: 275px;
+		  margin: 20px auto;
+		}
+		.progress-bar{
+			display: inline-block;
+			width: 275px;
+			height: 275px;
+			margin: 7px;
+			padding: 0;
+		}
+		.progress-bar .progress-active{
+			position: relative;
+			top: -281px;
+		}
+		.progress-bar p{
+			position: relative;
+			margin: 0;
+			padding: 0;
+			width: 275px;
+			top: -460px;
+			font-size: 35px;
+			font-weight: 900;
+			text-align: center;
+		}
+		#progressControllerContainer{
+		  position: absolute;
+		  top: 320px;
+		  padding: 10px 80px;
+		}
+
+		.track() {
+		  width: @track-width;
+		  height: @track-height;
+		  cursor: pointer;
+		  animate: 0.2s;
+		}
+
+		.thumb() {
+		  border: @thumb-border-width solid @thumb-border-color;
+		  height: @thumb-height;
+		  width: @thumb-width;
+		  border-radius: @thumb-radius;
+		  background: @thumb-color;
+		  cursor: pointer;
+		}
+}
+	</style>
+
+</head>
+<body>
+	
+	<!-- navbar -->
+	<div class="navbar">
+		<div class="container">
+			<div class="row">
+				<div class="col s9">
+					<div class="content-left">
+						<a href="home.html"><h1><span>PI</span> Data Sensors</h1></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end navbar -->
+	
+	
+	<!-- contact -->
+	<div class="contact segments-page">
+		<div class="container">
+			<div class="contact-contents">
+				<div class="pages-title">
+					<h3>Capteur ultrason</h3>
+					<div class="line"></div>
+				</div>			
+					
+			<div id="page" class="page">
+			  <div class="progress-bar">
+				  <canvas id="inactiveProgress" class="progress-inactive" height="275px" width="275px"></canvas>
+			    <canvas id="activeProgress" class="progress-active"  height="275px" width="275px"></canvas>
+			    <p>0</p>
+			  </div>  
+			</div>
+			<!-- SDG -->
+
+			</div>
+		</div>
+	</div>
+	<!-- end contact -->
+
+	
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io-stream/0.9.1/socket.io-stream.js"></script>
+
+	<script>
+
+		$(document).ready(function(){
+			var $pCaption = $('.progress-bar p');
+			var iProgress = document.getElementById('inactiveProgress');
+			var aProgress = document.getElementById('activeProgress');
+			var iProgressCTX = iProgress.getContext('2d');
+
+			
+			drawInactive(iProgressCTX);
+			
+
+			function drawInactive(iProgressCTX){
+				iProgressCTX.lineCap = 'square';
+
+				//outer ring
+				iProgressCTX.beginPath();
+				iProgressCTX.lineWidth = 15;
+				iProgressCTX.strokeStyle = '#e1e1e1';
+				iProgressCTX.arc(137.5,137.5,129,0,2*Math.PI);
+				iProgressCTX.stroke();
+
+				//progress bar
+				iProgressCTX.beginPath();
+				iProgressCTX.lineWidth = 0;
+				iProgressCTX.fillStyle = '#e6e6e6';
+				iProgressCTX.arc(137.5,137.5,121,0,2*Math.PI);
+				iProgressCTX.fill();
+
+				//progressbar caption
+				iProgressCTX.beginPath();
+				iProgressCTX.lineWidth = 0;
+				iProgressCTX.fillStyle = '#fff';
+				iProgressCTX.arc(137.5,137.5,100,0,2*Math.PI);
+				iProgressCTX.fill();
+
+			}
+
+			function drawProgress(bar, percentage, distance,  $pCaption){
+				var barCTX = bar.getContext("2d");
+				var quarterTurn = Math.PI / 2;
+				var endingAngle = ((2*percentage) * Math.PI) - quarterTurn;
+				var startingAngle = 0 - quarterTurn;
+
+				bar.width = bar.width;
+				barCTX.lineCap = 'square';
+
+				barCTX.beginPath();
+				barCTX.lineWidth = 20;
+				barCTX.strokeStyle = '#e71616';
+				barCTX.arc(137.5,137.5,111,startingAngle, endingAngle);
+				barCTX.stroke();
+
+				$pCaption.text( distance + ' cm');
+			}
+
+        var distance;
+        var socket = io();
+        socket.on('dataDistance', function (d) 
+        {
+            distance = d.distance;
+	    	var percentage = distance / 400;	
+	    	drawProgress(aProgress, percentage, distance, $pCaption);
+		});			
+	});
+	</script>
+
+</body>
+</html>

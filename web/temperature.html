@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>IP Data Sensors</title>
+	<link rel="stylesheet" href="css/materialize.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
+	<style>
+	  .page{
+		  display: flex;
+		 
+		  align-items: center;
+		  align-content: center;
+		  width: 200px;
+		  margin: 20px auto;
+		}
+
+		 g[class$='creditgroup'] {
+         display:none !important;
+    	}
+
+    	.temperatureValue{
+    		margin-top:-30px;
+    		align-items: center;
+    		display: flex;
+    		justify-content: center;
+            font-size: 2.5rem;
+            color: #5f5f5f;
+        }
+
+        .temperatureValue p{
+        	margin-left:20px;
+            font-size: 2.3rem;
+            color: #5f5f5f;
+        }
+	</style>
+
+</head>
+<body>
+	
+	<!-- navbar -->
+	<div class="navbar">
+		<div class="container">
+			<div class="row">
+				<div class="col s9">
+					<div class="content-left">
+						<a href="index.html"><h1><span>PI</span> Data Sensors</h1></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end navbar -->
+	
+	<!-- contact -->
+	<div class="contact segments-page">
+		<div class="container">
+			<div class="contact-contents">
+				<div class="pages-title">
+					<h3>Temperature</h3>
+					<div class="line"></div>
+				</div>
+
+				<div id="page" class="page">
+					<div id="chart-container"></div>
+				</div>
+
+				<div class="temperatureValue">
+		            <i class="fa fa-thermometer"></i>
+				    <p>Loading ...</p>
+			    </div>
+
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io-stream/0.9.1/socket.io-stream.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/thermometer.js"></script>
+
+</body>
+</html>
